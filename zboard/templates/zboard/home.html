@@ -7,6 +7,178 @@ zboard | Home
 
 
 {% block content %}
-<h1>You are in the home page</h1>
+
+<div class="container mt-3">
+    <div class="container">
+        <p class="lead">
+            <strong>Useful Information</strong>
+        </p>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Medications
+                </button>
+            </h2>
+
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="container">
+                        <p class="lead">Scheduled Medications</p>
+                    </div>
+                    <div class="container table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <th scope="col" class="w-15">Medication</th>
+                                <th scope="col" class="w-15">Dose</th>
+                                <th scope="col" class="w-25">Frequency</th>
+                                <th scope="col" class="w-35">Times</th>
+                            </thead>
+                            <tbody>
+                                {% for row in scheduled_meds %}
+                                <tr>
+                                    <td>
+                                        <a class="link-dark" href="#"
+                                            title="click for more information">{{row.name}}</a>
+                                    </td>
+                                    <td>{{row.dose}}</td>
+                                    <td>{{row.frequency}}</td>
+                                    <td>{{row.times}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- begin prn meds table -->
+                    <!-- if not responsive add table-responsive -->
+                    <div class="container">
+                        <p class="lead">PRN Medications</p>
+                    </div>
+                    <div class="container ">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <th scope="col" class="w-15">Medication</th>
+                                <th scope="col" class="w-15">Dose</th>
+                                <th scope="col" class="w-10">Indication</th>
+                            </thead>
+                            <tbody>
+                                {% for row in prn_meds %}
+                                <tr>
+                                    <td>
+                                        <a class="link-dark" href="#"
+                                            title="click for more information">{{row.name}}</a>
+                                    </td>
+                                    <td>{{row.dose}}</td>
+                                    <td>{{row.indication}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                        <a href="{% url 'meds:addmed' %}">
+                            <button type=" button" class="btn btn-secondary btn-sm me-md-2">Add Scheduled med</button>
+                        </a>
+                        <a href='#''>
+                            <button type="button" class="btn btn-secondary btn-sm me-md-2">Add PRN med</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Formula Recipe
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                <div class="accordion-body">
+                    <table class=' table'>
+                            <tr>
+                                <td>4 cartons of Ketocal Formula</td>
+                            </tr>
+                            <tr>
+                                <td>500 ml of water</li>
+                            </tr>
+                            <tr>
+                                <td>50 ml of Apple Juice</li>
+                            </tr>
+                            <tr>
+                                <td>1 scoop of beneprotein</li>
+                            </tr>
+
+
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    School Schedule
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                <div class="accordion-body">
+                    <div class="container">
+                        <p class="lead">Link to Zachy's School schedule:</p>
+                    </div>
+                    <div class="container">
+                        <a href="#">Link to zachy's school schedule goes here.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- contact accoridian tab -->
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Contacts
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour">
+                <div class="accordion-body">
+                    <table class="table table-bordered table-striped table-sm table-responsive">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in contacts %}
+                            <tr>
+                                <td>{{contact.name}}</td>
+                                <td>{{contact.phone}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 {% endblock %}

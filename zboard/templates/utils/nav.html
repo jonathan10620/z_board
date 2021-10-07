@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Z-Board</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% url 'home' as home_url %}
+        {% url 'home' as mar_url %}
+        {% url 'home' as bm_url %}
+        {% url 'home' as sz_url %}
+        {% url 'home' as eq_url %}
+
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item {% if request.path == home_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">Home</a>
+
+                <a class="nav-item {% if request.path == mar_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">MAR</a>
+
+                <a class="nav-item {% if request.path == sz_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">Seizure Log</a>
+                <a class="nav-item {% if request.path == bm_url %}active{% endif %} nav-link" href="{% url 'home' %}">BM
+                    log
+                </a>
+                <a class="nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">Equipment</a>
+            </div>
+        </div>
+    </div>
+</nav>
