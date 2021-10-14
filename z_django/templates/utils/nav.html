@@ -21,8 +21,18 @@
                 <a class="nav-item {% if request.path == home_url %}active{% endif %} nav-link"
                     href="{% url 'home' %}">Home</a>
 
-                <a class="nav-item {% if request.path == mar_url %}active{% endif %} nav-link"
-                    href="{% url 'home' %}">MAR</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link {% if request.path == eq_url %}active{% endif %} dropdown-toggle" href="#"
+                        id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        MAR
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Scheduled Meds</a></li>
+                        <li><a class="dropdown-item" href="#">PRN Meds</a></li>
+                    </ul>
+                </li>
+                <a class="nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">Interventions</a>
 
                 <a class="nav-item {% if request.path == sz_url %}active{% endif %} nav-link"
                     href="{% url 'home' %}">Seizure Log</a>
@@ -31,6 +41,15 @@
                 </a>
                 <a class="nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
                     href="{% url 'home' %}">Equipment</a>
+
+                <a class="nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
+                    href="{% url 'home' %}">Notes</a>
+
+
+
+
+
+
             </div>
         </div>
     </div>

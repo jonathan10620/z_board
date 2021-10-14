@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # My apps
     "zboard",
     "meds",
+    # third party
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -58,7 +63,7 @@ ROOT_URLCONF = "z_django.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "z_django" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -71,7 +76,15 @@ TEMPLATES = [
     },
 ]
 
-MESSAGE_TAGS = {messages.ERROR: "danger"}
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+    messages.INFO: "primary",
+    messages.WARNING: "warning",
+}
 
 
 WSGI_APPLICATION = "z_django.wsgi.application"

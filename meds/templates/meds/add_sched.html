@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-3">
+
+    <!-- Page Title -->
+    <div class="row">
+        <div class="col-8">
+            <p class="lead">Add Scheduled Medication </p>
+        </div>
+    </div>
+
+
+
+    <form class='card p-3 bg-light' action="" method='POST'>
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label class="col-sm-4 col-form-label form-control-sm" for="name">{{form.name.label }}</label>
+                    <div class="col-sm-8">
+                        {{form.name}}
+                        {% if form.name.errors %}
+                        {% for error in form.name.errors %}
+                        <small class="text-danger"> {{error}} </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label class="col-sm-4 col-form-label form-control-sm" for="dose">{{form.dose.label}}</label>
+                    <div class="col-sm-8">
+                        {{form.dose}}
+                        {% if form.dose.errors %}
+                        {% for error in form.dose.errors %}
+                        <small class="text-danger"> {{error}} </small>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+
+                <div class="mb-3">
+                    <label class="col-sm-4 col-form-label form-control-sm"
+                        for="frequency">{{form.frequency.label}}</label>
+                    <div class="col-sm-8">
+                        {{form.frequency}} {% if form.frequency.errors %}
+                        <ul class="errors">
+                            {% for error in form.frequency.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="col-sm-4 col-form-label form-control-sm" for="times">{{form.times.label}}</label>
+                    <div class="col-sm-8">
+                        {{form.times}}
+                        {% if form.times.errors %}
+                        <ul class="errors">
+                            {% for error in form.times.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Enter Medication" />
+        </div>
+    </form>
+
+</div>
+{% endblock %}

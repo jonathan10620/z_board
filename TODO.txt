@@ -1,3 +1,18 @@
-- Login page 
+[x] Login Page
 
-- home page
+---Home---
+[x] prn/sched Medications table
+[x] contacts table 
+[ ] add contacts form?
+
+
+---Meds---
+[x] CRUD for sched and prn meds
+
+
+---MAR---
+[ ] Scheduled Med MAR
+[ ] PRN Meed MAR
+
+---Interventions---
+[ ] complete interventions 
