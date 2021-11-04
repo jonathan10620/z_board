@@ -2,3 +2,7 @@ __pycache__/
 TODO.txt
 .vscode/
 *.pyc
+.DS_Store
+*.jpeg
+*.cpython-39.pyc
+db.sqlite3

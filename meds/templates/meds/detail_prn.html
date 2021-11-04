@@ -1,52 +1,85 @@
-{% extends 'base.html' %}
-
-{% block title %}
-{{med.name}}
-{% endblock %}
-
+{% extends 'base.html' %} {% load static %}
+<!--start title-->
+{% block title %} {{med.name}} {% endblock %}
+<!--Start Body-->
 {% block content %}
 <div class="container mt-3">
-    <div class="card w-75">
-
-
+  <div class="card mb-3 w-75">
+    <div class="row g-0">
+      <div class="col-md-9">
         <div class="card-body">
-            <h5 class="card-title">{{med.name}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{med.dose}} {{med.indication}}</h6>
-            <ul class="list-group list-group-flush">
-            </ul>
-            <a href="#" class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Med</a>
-
-            <a href="https://www.drugs.com/{{med.name}}.html" class="card-link">More info</a>
-
+          <h5 class="card-title">{{med.name}} {{med.dose}}</h5>
+          <h6 class="mt-2 card-subtitle mb-2 text-muted">{{med.indication}}</h6>
         </div>
+      </div>
+      <div class="col">
+        <!--img-->
+        {% with 'meds/'|add:med.name.lower|add:'.jpeg' as image_static %}
+        <img
+          src="{% static image_static %}"
+          class="img-fluid rounded-start"
+          alt="..."
+        />
+        {% endwith %}
+      </div>
+      <div class="card-footer">
+        <a
+          href="#"
+          class="card-link"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          >Delete Med</a
+        >
+
+        <a
+          target="_blank"
+          href="https://www.drugs.com/{{med.name}}.html"
+          class="card-link"
+          >More info</a
+        >
+      </div>
     </div>
+  </div>
 
-</div>
-
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete {{med.name}}?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Are you sure you want to delete this medication?
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form action="{% url 'meds:delete_prn' med.id %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                </form>
-
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Delete {{med.name}}?
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this medication?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <form action="{% url 'meds:delete_prn' med.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-{% endblock %}
+  {% endblock %}
+</div>
