@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Mar
+from meds.models import MarScheduled
 
 # Register your models here.
-admin.site.register(Mar)
+admin.site.register(MarScheduled)

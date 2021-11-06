@@ -28,10 +28,14 @@
         {% for row in mar_map %}
         <tr>
             <td>{{row.med}}</td>
-            <td>{{row.times}}</td>
+            {% include 'includes/med_times_single.html' %}
 
-            {% for date in week_dates|slice:weekday_slice %}
+            {% for day in row.days|slice:weekday_slice %}
+            {% if day %}
+            <td>{{day}}</td>
+            {% else %}
             <td>{% include 'includes/mar_form.html'%}</td>
+            {% endif%}
             {% endfor %}
 
         </tr>

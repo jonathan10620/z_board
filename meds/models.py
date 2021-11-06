@@ -20,11 +20,11 @@ class ScheduledMed(models.Model):
 class MarScheduled(models.Model):
     given = models.BooleanField(default=False)
     med = models.ForeignKey(ScheduledMed, on_delete=models.CASCADE)
-    date = models.DateField()
+    mar_date = models.DateField()
     nurse = models.CharField(max_length=20)
 
-    def weekday(self):
-        return self.date.weekday()
+    # def weekday(self):
+    #     return self.date.weekday()
 
 
 class PrnMed(models.Model):
