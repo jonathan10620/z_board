@@ -7,8 +7,24 @@ class ScheduledMed(models.Model):
     frequency = models.CharField(max_length=200)
     times = models.CharField(max_length=200)
 
+    def times_as_list(self):
+        return self.times.split(" ")
+
+    def time_count(self):
+        return len(self.times.split(" "))
+
     def __str__(self):
         return self.name
+
+
+class MarScheduled(models.Model):
+    given = models.BooleanField(default=False)
+    med = models.ForeignKey(ScheduledMed, on_delete=models.CASCADE)
+    date = models.DateField()
+    nurse = models.CharField(max_length=20)
+
+    def weekday(self):
+        return self.date.weekday()
 
 
 class PrnMed(models.Model):

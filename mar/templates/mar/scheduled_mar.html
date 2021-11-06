@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load tz %}
+
+
+{% block content %}
+<div class="container mt-3">
+    <div class="container">
+        <p class="lead">
+            Week of {{week_dates.0|date:'F'}} {{ord_date.0}} - {{week_dates|last|date:'F'}} {{ord_date.1}}
+        </p>
+    </div>
+
+    <!--Start Table-->
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr class="table-primary">
+                <th class="col-sm-2" scope="col">Medication</th>
+                <th class="col-sm-1" scope="col">Admin Times</th>
+                {% for date in week_dates %}
+                <th class='col-sm-1 {% if date == today %} table-success {% elif date > today %} table-secondary {% else %} {% endif %}'
+                    scope="col">
+                    {{date |date:'D m-j'}}
+                </th>
+                {%endfor%}
+            </tr>
+        </thead>
+        <!--Begin Body-->
+        {% for row in mar_map %}
+        <tr>
+            <td>{{row.med}}</td>
+            <td>{{row.times}}</td>
+
+            {% for date in week_dates|slice:weekday_slice %}
+            <td>{% include 'includes/mar_form.html'%}</td>
+            {% endfor %}
+
+        </tr>
+        {% endfor %}
+
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% endblock %}
