@@ -25,4 +25,6 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("meds/", include("meds.urls")),
     path("mar/", include("mar.urls")),
+    path("bm/", include("bm.urls")),
+    
 ]

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "zboard",
     "meds",
     "mar",
+    'bm',
     # third party
     "crispy_forms",
     "crispy_bootstrap5",

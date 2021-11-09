@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="container">
+        <p class="lead">
+            Month of {{month}} 
+        </p>
+    </div>
+
+    <table class="table table-bordered table-striped table-sm">
+        <thead class="thead-dark">
+            <tr id='table-head'>
+              <th scope="col">Date</th>
+              <th scope="col">Time</th>
+              <th scope="col">Size</th>
+              <th scope="col">Comment</th>
+              <th style="width: 15%" scope="col">Initials</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% if results %}
+                {% for row in results %}
+                    <tr>
+                        <td>{{row.date|date:'N j'}}</td>
+                        <td>{{row.date|date:'P'}}</td>
+                        <td>{{row.size}}</td>
+                        <td>{{row.comment}}</td>
+                        <td>{{row.initial}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </tbody>
+
+
+
+    </table>
+
+    <div class="container">
+        <form class='card p-3 bg-light' action="" method='POST'>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="mb-3">
+                        <label class="col-sm-4 col-form-label form-control-sm" for="med">Size</label>
+                        <div class="col-sm-8">
+                            {{form.size}}
+
+                            {% if form.size.errors %}
+                            {% for error in form.size.errors %}
+                            <small class="text-danger"> {{error}} </small>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-sm">
+                    <div class="mb-3">
+                        <label class="col-sm-4 col-form-label form-control-sm" for="indication">{{form.comment.label}}</label>
+                        <div class="col-sm-8">
+                            {{form.comment}}
+                            {% if form.comment.errors %}
+                            {% for error in form.comment.errors %}
+                            <small class="text-danger"> {{error}} </small>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+              
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="mb-3">
+                        <label class="col-sm-4 col-form-label form-control-sm"
+                            for="mar_datetime">{{form.date.label}}</label>
+                        <div class="col-sm-8">
+                            {{form.date}} 
+                            {% if form.date.errors %}
+                                <ul class="errors">
+                                    {% for error in form.date.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="mb-3">
+                        <label class="col-form-label-sm"
+                            for="initial">{{form.initial.label}}</label>
+                        <div class="col-sm-8">
+                            {{form.initial}} {% if form.initial.errors %}
+                            <ul class="errors">
+                                {% for error in form.initial.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-12">
+                <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit BM" />
+            </div>
+    
+    
+        </form>
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+{% endblock %}

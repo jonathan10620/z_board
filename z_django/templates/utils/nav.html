@@ -9,7 +9,7 @@
     {% url 'home' as home_url %}
     {% url 'mar:scheduled' as mar_sched_url %}
     {% url 'mar:prn' as mar_prn_url %}
-    {% url 'home' as bm_url %}
+    {% url 'bm' as bm_url %}
     {% url 'home' as sz_url %}
     {% url 'home' as eq_url%}
     {% url 'home' as notes_url%}
@@ -34,7 +34,7 @@
 
         <a class=" nav-item {% if request.path == sz_url %}active{% endif %} nav-link" href="{% url 'home' %}">Seizure
           Log</a>
-        <a class=" nav-item {% if request.path == bm_url %}active{% endif %} nav-link" href="{% url 'home' %}">BM log
+        <a class=" nav-item {% if request.path == bm_url %}active{% endif %} nav-link" href="{% url 'bm' %}">BM log
         </a>
         <a class=" nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
           href="{% url 'home' %}">Equipment</a>
