@@ -17,16 +17,6 @@ class ScheduledMed(models.Model):
         return self.name
 
 
-class MarScheduled(models.Model):
-    given = models.BooleanField(default=False)
-    med = models.ForeignKey(ScheduledMed, on_delete=models.CASCADE)
-    mar_date = models.DateField()
-    nurse = models.CharField(max_length=20)
-
-    # def weekday(self):
-    #     return self.date.weekday()
-
-
 class PrnMed(models.Model):
     name = models.CharField(max_length=200)
     dose = models.CharField(max_length=200)
@@ -34,3 +24,6 @@ class PrnMed(models.Model):
 
     def __str__(self):
         return self.name
+
+
+

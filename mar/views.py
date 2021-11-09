@@ -1,26 +1,44 @@
 from django.shortcuts import render, redirect
-from meds.models import ScheduledMed, MarScheduled
+from meds.models import ScheduledMed, PrnMed
+from .models import MarScheduled, MarPrn
+
+
+
+from .forms import PrnMarForm
+
+
+
 from django.contrib.humanize.templatetags.humanize import ordinal
 import datetime
 from django.contrib import messages
+import pprint
 
+
+
+today = datetime.date.today()
+dates = [
+    today + datetime.timedelta(days=x)
+    for x in range(0 - today.weekday(), 7 - today.weekday())
+]
+ord_date = [ordinal(dates[0].strftime("%d")), ordinal(dates[-1].strftime("%d"))]
 
 # Create your views here.
 def scheduled(request):
-    today = datetime.date.today()
-    dates = [
-        today + datetime.timedelta(days=x)
-        for x in range(0 - today.weekday(), 7 - today.weekday())
-    ]
-
     sched_meds = ScheduledMed.objects.all()
 
     if request.method == "POST":
         nurse = request.POST.get("nurse")
-        med = ScheduledMed.objects.filter(name=request.POST.get("med")).first()
-        date = dates[int(request.POST.get("date"))]
+        if not nurse:
+            messages.info(request, "Enter Initials")
+            return redirect("mar:scheduled")
 
-        mar_object = MarScheduled(given=True, med=med, mar_date=date, nurse=nurse)
+        med = ScheduledMed.objects.filter(name=request.POST.get("med")).first()
+        date = request.POST.get("date").replace('.', '').replace(',', '')
+        time = request.POST.get("time")
+
+        date_formatted = datetime.datetime.strptime(date, "%b %d %Y")
+
+        mar_object = MarScheduled(given=True, med=med, mar_date=date_formatted, nurse=nurse, time=time)
 
         mar_object.save()
 
@@ -31,44 +49,45 @@ def scheduled(request):
     mar_map = []
 
     for med in sched_meds:
-        mar_map.append({"med": med.name, "times": med.times, "days": []})
-        for date in dates:
-            for entry in mar_entries:
-                if entry.mar_date == date and entry.med.name == med.name:
-                    mar_map[-1]["days"].append(entry.nurse)
-                    break
-            else:
-                mar_map[-1]["days"].append("")
+        mar_map.append({"med": med, "times": med.times.split(' '), "days": []})
+        for time in med.times.split(' '):
+            for date in dates:
+                for entry in mar_entries:
+                    if entry.mar_date == date and entry.time == time and entry.med == med:
+                        mar_map[-1]["days"].append({"date": date, "time": time, "nurse": entry.nurse})
+                        break
+                else:
+                    mar_map[-1]["days"].append({"date": date, "time": time, "nurse": None})
 
-    print(mar_map)
-
-    ord_date = [ordinal(dates[0].strftime("%d")), ordinal(dates[-1].strftime("%d"))]
+    
     context = {
         "meds": sched_meds,
         "today": today,
         "week_dates": dates,
-        "mar_map": mar_map,
+        
         "ord_date": ord_date,
-        "weekday_slice": ":" + str(today.weekday() + 1),
+        "mar_map": mar_map,
     }
 
     return render(request, "mar/scheduled_mar.html", context)
 
 
 def prn(request):
-    return render(request, "mar/prn_mar.html")
+    form = PrnMarForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            messages.success(request, "MAR updated")
+            return redirect("mar:prn")
 
 
-# mar_array = []
-# for med in sched_meds:
-#     med_week = []
-#     for day in dates[: today.weekday() + 1]:
-#         for entry in mar_entries:
-#             if entry.med == med.name and entry.date == day:
-#                 med_week.append(
-#                     {"med": med.name, "nurse": entry.nurse, "times": med.times}
-#                 )
-#                 break
-#         else:
-#             med_week.append({"med": med.name, "nurse": "", "times": med.times})
-#     mar_array.append(med_week)
+    prn_meds = PrnMed.objects.all()
+    mars = MarPrn.objects.all()
+
+    context = {
+        'form': form,
+        'prns': mars
+    }
+
+    return render(request, "mar/prn_mar.html", context)
+

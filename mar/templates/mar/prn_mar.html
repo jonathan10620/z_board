@@ -2,5 +2,139 @@
 
 
 {% block content %}
-<h1>Hello this is PRN MAR</h1>
+<div class="container mt-3">
+     <div class="container">
+        <p class="lead">
+            PRN MAR
+        </p>
+    </div>
+
+    <div class="container table-responsive">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <th scope="col" style="width: 20%">Medication</th>
+                <th scope="col" style="width: 40%">Indication</th>
+                <th scope="col" style="width: 15%">Date</th>
+                <th scope="col" style="width: 15%">Time</th>
+                <th scope="col" style="width: 10%">Initials</th>
+            </thead>
+            <tbody>
+                {% for prn in prns %}
+                <tr>
+                    
+                        <td>{{prn.med.name}} {{prn.med.dose}}</td>
+                        <td>{{prn.indication}}</td>
+                        <td>{{prn.mar_datetime|date:'N j'}}</td>
+                        <td>{{prn.mar_datetime|date:'P'}}</td>
+                        <td>{{prn.initial}}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="container">
+            <form class='card p-3 bg-light' action="" method='POST'>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="mb-3">
+                            <label class="col-sm-4 col-form-label form-control-sm" for="med">Medication</label>
+                            <div class="col-sm-8">
+                                {{form.med}}
+    
+    
+                                {% if form.med.errors %}
+                                {% for error in form.med.errors %}
+                                <small class="text-danger"> {{error}} </small>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm">
+                        <div class="mb-3">
+                            <label class="col-sm-4 col-form-label form-control-sm" for="indication">{{form.indication.label}}</label>
+                            <div class="col-sm-8">
+                                {{form.indication}}
+                                {% if form.indication.errors %}
+                                {% for error in form.indication.errors %}
+                                <small class="text-danger"> {{error}} </small>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="mb-3">
+                            <label class="col-sm-4 col-form-label form-control-sm"
+                                for="mar_datetime">{{form.mar_datetime.label}}</label>
+                            <div class="col-sm-8">
+                                {{form.mar_datetime}} 
+                                {% if form.mar_datetime.errors %}
+                                    <ul class="errors">
+                                        {% for error in form.mar_datetime.errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-2">
+                        <div class="mb-3">
+                            <label class="col-form-label-sm"
+                                for="initial">{{form.initial.label}}</label>
+                            <div class="col-sm-8">
+                                {{form.initial}} {% if form.initial.errors %}
+                                <ul class="errors">
+                                    {% for error in form.initial.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-12">
+                    <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit PRN" />
+                </div>
+        
+        
+            </form>
+
+
+
+
+
+        </div>
+        
+    
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
 {% endblock %}

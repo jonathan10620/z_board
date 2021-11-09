@@ -13,7 +13,7 @@
 
 ---MAR---
 •Scheduled MAR
-    [ ] MAR table
+    [x] MAR table
 •PRN MAR
     [ ] MAR table
 

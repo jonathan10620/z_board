@@ -1,7 +1,8 @@
-{% if row.times == '0730' %}
-<td style='background-color:#90EE90'>AM</td>
-{% elif row.times == '1330' %}
-<td style='background-color:#eaf58c'>MID-DAY</td>
-{% else %}
-<td style='background-color:#dba48b'>PM</td>
-{% endif %}
+    {% if row.times.0 == '0730' %}
+    <td style='background-color:#90EE90'>AM</td>
+    {% elif row.times.0 == '1330' %}
+    <td style='background-color:#eaf58c'>MID-DAY</td>
+    {% else %}
+    <td style='background-color:#dba48b'>PM</td>
+    {% endif %}
+
