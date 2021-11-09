@@ -21,4 +21,14 @@
 ---Interventions---
 [ ] complete interventions 
 
+---BM---
+[x] complete BM
 
+---Equipment---
+[ ] complete equipment
+
+---Seizure---
+[ ] complete seizure page
+
+--Notes---
+[ ] complete notes page
