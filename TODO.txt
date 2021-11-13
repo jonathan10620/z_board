@@ -22,7 +22,7 @@
 [ ] complete interventions 
 
 ---BM---
-[x] complete BM
+[ ] complete BM
 
 ---Equipment---
 [ ] complete equipment

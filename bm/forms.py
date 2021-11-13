@@ -1,6 +1,7 @@
 from django import forms
 from .models import BM
 
+
 from datetime import datetime
 
 class BMForm(forms.ModelForm):

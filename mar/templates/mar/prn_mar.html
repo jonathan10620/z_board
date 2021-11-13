@@ -76,11 +76,9 @@
                             <div class="col-sm-8">
                                 {{form.mar_datetime}} 
                                 {% if form.mar_datetime.errors %}
-                                    <ul class="errors">
                                         {% for error in form.mar_datetime.errors %}
-                                        <li>{{ error }}</li>
+                                        <small class="text-danger"> {{error}} </small>
                                         {% endfor %}
-                                    </ul>
                                 {% endif %}
                             </div>
                         </div>

@@ -9,9 +9,10 @@ def bm(request):
     today = datetime.today()
     form = BMForm(request.POST or None)
     if request.method == 'POST':
-        form.save()
-        messages.success(request, "BM entry added")
-        return redirect("bm")
+        if form.is_valid():
+            form.save()
+            messages.success(request, "BM entry added")
+            return redirect("bm")
 
 
     results = BM.objects.filter(date__month=today.month)

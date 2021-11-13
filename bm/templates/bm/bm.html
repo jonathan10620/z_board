@@ -65,14 +65,13 @@
                             {{form.comment}}
                             {% if form.comment.errors %}
                             {% for error in form.comment.errors %}
-                            <small class="text-danger"> {{error}} </small>
+                            
                             {% endfor %}
                             {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-              
             <div class="row">
                 <div class="col-sm-5">
                     <div class="mb-3">
@@ -81,9 +80,8 @@
                         <div class="col-sm-8">
                             {{form.date}} 
                             {% if form.date.errors %}
-                                <ul class="errors">
                                     {% for error in form.date.errors %}
-                                    <li>{{ error }}</li>
+                                    <small class="text-danger"> {{error}} </small>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
