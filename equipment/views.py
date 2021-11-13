@@ -15,10 +15,9 @@ def equipment(request):
                 entry = Suction.objects.get(equipment=request.POST['equipment'])
             if not entry:
                 entry = Other.objects.get(equipment=request.POST['equipment'])
-
-            # entry.update(date=request.POST['date'] )
-            print(form.cleaned_data.get('initials'))
+                
             entry.initials = form.cleaned_data.get('initials')
+            entry.date = form.cleaned_data.get('date')
             entry.save()
 
             return redirect('equipment')
