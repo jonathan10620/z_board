@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+  #header-section {
+    text-align: center;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+  @media (min-width: 100px) {
+    .container {
+      max-width: 970px;
+    }
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container mt-3">
+
+    <table class="table table-striped">
+  
+      <!-- CPAP Section  -->
+  
+      <tbody>
+        <tr id='header-section' class='table-primary'>
+            <th colspan="4">CPAP</th>
+          </tr>
+  
+        <tr>
+          <th>Equipment</th>
+          <th>Change every</th>
+          <th>Last Changed</th>
+          <th>Initials</th>
+        </tr>
+        
+  
+        <!-- CPAP data rows -->
+        {% for row in cpap_data %}
+        <tr>
+          <td>{{row.equipment}}</td>
+          <td>{{row.frequency}}</td>
+          <td>{{row.date}}</td>
+          <td>{{row.initials}}</td>
+        </tr>
+        {% endfor %}
+  
+  
+  
+      </tbody>
+  
+      <!-- Suction section -->
+  
+      <tbody>
+        <tr id='header-section' class='table-warning'>
+          <th colspan="4">SUCTION</th>
+        </tr>
+        {% for row in suction_data %}
+        <tr>
+          <td>{{row.equipment}}</td>
+          <td>{{row.frequency}}</td>
+          <td>{{row.date}}</td>
+          <td>{{row.initials}}</td>
+        </tr>
+        {% endfor %}
+  
+  
+  
+  
+      </tbody>
+  
+      <tbody>
+        <tr id='header-section' class='table-success'>
+          <th colspan="4">OTHER</th>
+        </tr>
+        {% for row in other_data %}
+        <tr>
+          <td>{{row.equipment}}</td>
+          <td>{{row.frequency}}</td>
+          <td>{{row.date}}</td>
+          <td>{{row.initials}}</td>
+        </tr>
+        {% endfor %}
+  
+  
+  
+      </tbody>
+  
+  
+  
+  
+  
+    </table>
+  </div>
+  
+  
+  <div class="container mt-3">
+    <form class="form-horizontal card p-3 bg-light" method="POST">
+      {% csrf_token %}
+      <p class="lead">
+        <strong>Update Equipment Change</strong>
+      </p>
+      <div class="row">
+        <div class="col">
+          <!-- Date time form field -->
+          <div class="mb-3">
+            <label class="col-sm-4 col-form-label form-control-sm" for="equipment">Equipment</label>
+            <div class="col-sm-8">
+              {{form.equipment}} 
+              {% if form.equipment.errors %} 
+                {% for error in form.equipment.errors %}
+                  <small class="text-danger"> {{error}} </small>
+              {% endfor %} 
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="col-sm-8 col-form-label form-control-sm" for="dose">Date Changed</label>
+            {{form.date}} 
+            {% if form.date_changed.errors %} 
+            {% for error in form.date_changed.errors %}
+            <small class="text-danger"> {{error}} </small>
+            {% endfor %} {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <!-- intials form field -->
+          <div class="mb-3">
+            <label class="col-form-label form-control-sm">{{form.initials.label}}</label>
+            {{form.initials}} 
+
+            {% if form.initials.errors %}
+            <ul class="errors">
+              {% for error in form.initials.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 d-md-block mt-2">
+        <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit" />
+      </div>
+
+    </form>
+    
+  </div>
+  
+
+
+
+{% endblock %}

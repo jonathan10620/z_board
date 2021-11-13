@@ -7,11 +7,12 @@
     </button>
 
     {% url 'home' as home_url %}
+    {% url 'interventions' as int_url %}
     {% url 'mar:scheduled' as mar_sched_url %}
     {% url 'mar:prn' as mar_prn_url %}
     {% url 'bm' as bm_url %}
     {% url 'home' as sz_url %}
-    {% url 'home' as eq_url%}
+    {% url 'equipment' as eq_url%}
     {% url 'home' as notes_url%}
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -29,7 +30,7 @@
             <li><a class="dropdown-item" href="{% url 'mar:prn'%}">PRN Meds</a></li>
           </ul>
         </li>
-        <a class=" nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
+        <a class=" nav-item {% if request.path == int_url %}active{% endif %} nav-link"
           href="{% url 'home' %}">Interventions</a>
 
         <a class=" nav-item {% if request.path == sz_url %}active{% endif %} nav-link" href="{% url 'home' %}">Seizure
@@ -37,7 +38,7 @@
         <a class=" nav-item {% if request.path == bm_url %}active{% endif %} nav-link" href="{% url 'bm' %}">BM log
         </a>
         <a class=" nav-item {% if request.path == eq_url %}active{% endif %} nav-link"
-          href="{% url 'home' %}">Equipment</a>
+          href="{% url 'equipment' %}">Equipment</a>
 
         <a class=" nav-item {% if request.path == notes_url %}active{% endif %} nav-link"
           href="{% url 'home' %}">Notes</a>
