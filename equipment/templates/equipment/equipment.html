@@ -127,8 +127,8 @@
           <div class="mb-3">
             <label class="col-sm-8 col-form-label form-control-sm" for="dose">Date Changed</label>
             {{form.date}} 
-            {% if form.date_changed.errors %} 
-            {% for error in form.date_changed.errors %}
+            {% if form.date.errors %} 
+            {% for error in form.date.errors %}
             <small class="text-danger"> {{error}} </small>
             {% endfor %} {% endif %}
           </div>

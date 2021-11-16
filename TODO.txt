@@ -22,10 +22,10 @@
 [ ] complete interventions 
 
 ---BM---
-[ ] complete BM
+[x] complete BM
 
 ---Equipment---
-[ ] complete equipment
+[x] complete equipment
 
 ---Seizure---
 [ ] complete seizure page
