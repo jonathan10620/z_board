@@ -6,8 +6,6 @@ from .models import MarScheduled, MarPrn
 
 from .forms import PrnMarForm
 
-
-
 from django.contrib.humanize.templatetags.humanize import ordinal
 import datetime
 from django.contrib import messages
@@ -82,7 +80,7 @@ def prn(request):
 
 
     prn_meds = PrnMed.objects.all()
-    mars = MarPrn.objects.all()
+    mars = MarPrn.objects.all()[:20]
 
     context = {
         'form': form,

@@ -1,3 +1,4 @@
+******COMPLETED***********
 [x] Login Page
 
 ---Home---
@@ -17,18 +18,21 @@
 •PRN MAR
     [x] MAR table
 
-
----Interventions---
-[ ] complete interventions 
-
 ---BM---
 [x] complete BM
 
 ---Equipment---
 [x] complete equipment
 
+
+
+********TODO**************
+
 ---Seizure---
 [ ] complete seizure page
 
 --Notes---
 [ ] complete notes page
+
+---Interventions---
+[ ] complete interventions 

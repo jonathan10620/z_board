@@ -13,7 +13,7 @@
     {% url 'bm' as bm_url %}
     {% url 'home' as sz_url %}
     {% url 'equipment' as eq_url%}
-    {% url 'home' as notes_url%}
+    {% url 'notes' as notes_url%}
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
@@ -41,7 +41,7 @@
           href="{% url 'equipment' %}">Equipment</a>
 
         <a class=" nav-item {% if request.path == notes_url %}active{% endif %} nav-link"
-          href="{% url 'home' %}">Notes</a>
+          href="{% url 'notes' %}">Notes</a>
       </div>
     </div>
   </div>

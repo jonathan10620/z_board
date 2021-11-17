@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "mar",
     'bm',
     'equipment',
+    'notes',
     # third party
     "crispy_forms",
     "crispy_bootstrap5",

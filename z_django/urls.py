@@ -27,5 +27,6 @@ urlpatterns = [
     path("mar/", include("mar.urls")),
     path("bm/", include("bm.urls")),
     path("equipment/", include("equipment.urls")),
+    path("notes/", include("notes.urls")),
     
 ]

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+                <p class="lead">
+                    Create New Note
+                </p>
+            </div>
+        </div>
+
+        <form method='POST'>
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-sm-7">
+                    <label class="col-sm-4 col-form-label form-control-sm">Date & Time</label>
+                    {{form.date}}
+                </div>
+                <div class="col-sm">
+                    <label class="col-sm-4 col-form-label form-control-sm">Author</label>
+                {{form.author}}
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-sm">
+                    <label for="exampleFormControlTextarea1" class="col-sm-4 col-form-label form-control-sm">Note</label>
+                    {{form.body}}
+                </div> 
+            </div>
+
+            <div class=" mt-3">
+                <button type="submit" class="btn btn-primary">Create Note</button>
+              </div>
+        </form>
+
+    </div>
+
+{% endblock %}
