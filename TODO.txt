@@ -24,15 +24,14 @@
 ---Equipment---
 [x] complete equipment
 
+--Notes---
+[x] complete notes page
+
 
 
 ********TODO**************
-
 ---Seizure---
 [ ] complete seizure page
-
---Notes---
-[ ] complete notes page
 
 ---Interventions---
 [ ] complete interventions 
