@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Seizure Log
+{% endblock %}
+
+
+
+{% block styles %}
+<style>
+  #table-head {
+    background-color: #2965d3;
+    color: #ffffff;
+  }
+
+  #submit-button {
+    background-color: #2965d3;
+    color: #ffffff;
+  }
+
+  .pagination>li>a {
+    background-color: white;
+    color: #2965d3;
+  }
+
+  .pagination>.active>a {
+    color: white;
+    background-color: #2965d3 !Important;
+    border: solid 1px #2965d3 !Important;
+  }
+</style>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- chart and table conatainer-->
+<div class="container mt-3">
+
+
+  <!-- begin Chart -->
+  <div class="container">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+
+  <!-- BEGIN table-container-->
+  <div class="container">
+    <table class="table table-bordered table-striped table-sm">
+      <thead class="thead-dark">
+        <tr id='table-head'>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Duration</th>
+          <th scope="col">Action</th>
+          <th style="width: 10%" scope="col">Initials</th>
+        </tr>
+      </thead>
+      {% for row in data %}
+      <tr>
+        <!-- Order by date -->
+        <!-- add row for data -->
+        <td scope="row">{{row.date|date:"F jS" }}</td>
+        <td>{{row.date|date:'g:i a'}}</td>
+        <td>{{row.duration}}</td>
+        <td>{{row.action}}</td>
+        <td>{{row.initial}}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+
+{% comment %}
+    <nav aria-label="Page navigation example">
+      <ul class='pagination pagination-sm'>
+        <li class="page-item {% if data.page == 1 %}disabled{% endif %}">
+          <a href="{{url_for('seizure', page=data.prev_num)}}" class="page-link">&laquo;</a>
+        </li>
+
+        {% for page_num in data.iter_pages(left_edge=1, right_edge=1,left_current=1,right_current=2) %}
+        {% if page_num %}
+        {% if data.page == page_num %}
+        <li class="page-item active">
+          <a href="{{ url_for('seizure', page=page_num) }}" class="page-link">
+            {{ page_num }}
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a href="{{ url_for('seizure', page=page_num) }}" class="page-link">
+            {{ page_num }}
+          </a>
+        </li>
+
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+        <li class="page-item {% if data.page == data.pages %}disabled{% endif %}">
+          <a href="{{ url_for('seizure', page=data.next_num) }}" class="page-link 
+          {% if data.page == data.pages %}disabled{% endif %}">
+            &raquo;
+          </a>
+        </li>
+      </ul>
+    </nav>
+{% endcomment %}
+
+  </div>
+  <!-- END-table-container -->
+</div>
+
+<!-- BEGIN Form container -->
+<div class="container my-5">
+
+  <form class="card p-3 bg-light form-horizontal" method="POST">
+      {% csrf_token %}
+    <!-- datetime, duration row-->
+    <div class="row">
+        <!-- Date time form field -->
+        <div class="col">
+            <div class="mb-3">
+                <label class="col-sm-4 col-form-label form-control-sm" for="date_time">Date & Time</label>
+                <div class="col-sm-8">
+                    {{form.date}} 
+                    {% if form.date.errors %} 
+                        {% for error in form.date.errors %}
+                            <small class="text-danger"> {{error}} </small>
+                        {% endfor %} 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Duration form field -->
+        <div class="col">
+            <div class="mb-3">
+                <label class="col-sm-4 col-form-label form-control-sm" for="duration">Duration</label>
+                <div class="col-sm-8">
+                    {{form.duration}} 
+                    {% if form.duration.errors %} 
+                        {% for error in form.duration.errors %}
+                            <small class="text-danger">Duration must be a number (in seconds)</small>
+                        {% endfor %} 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- initials, action taken row-->
+    <div class="row">
+        <!-- nurse initials form field -->
+        <div class="col">
+            <div class="mb-3">
+            <label class="col-sm-4 col-form-label form-control-sm" for="initials">Initials</label>
+            <div class="col-sm-3">
+                {{form.initial}} 
+                {% if form.initial.errors %}
+                    <ul class="errors">
+                        {% for error in form.initial.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+
+        <!-- action taken form field -->
+        <div class="col">
+            <div class="mb-3">
+                <label class="col-sm-4 col-form-label form-control-sm" for="action_taken">Action Taken</label>
+                <div class="col-sm-8">
+                    {{form.action}} 
+                    {% if form.action_taken.errors %}
+                        <ul class="errors">
+                            {% for error in form.action_taken.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mt-2">
+      <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit Seizure" />
+    </div>
+  </form>
+</div>
+<!-- END Form container -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+<script>
+  const labels = {{ labels | tojson }};
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Number of Seizures",
+        backgroundColor: "rgb(51, 153, 255)",
+        borderColor: "rgb(101, 180, 255)",
+        fill: false,
+        data: {{ week_freq | tojson }},
+  tension: 0.05,
+      },
+    ],
+  };
+  const config = {
+    type: "line",
+    data,
+    options: {
+      legend: {
+        position: 'bottom',
+      },
+      hover: {
+        mode: 'label'
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 10
+            },
+
+            scaleLabel: {
+              display: true,
+              labelString: 'Number of Seizures'
+            }
+
+          }
+
+
+        ]
+
+      },
+      // Boolean - whether or not the chart should be responsive and resize when the browser does.
+
+      responsive: true,
+
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+
+      maintainAspectRatio: false,
+    },
+
+  };
+  var myChart = new Chart(document.getElementById("myChart"), config);
+</script>
+{% endcomment %}
+
+
+{% endblock %}

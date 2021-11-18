@@ -11,7 +11,7 @@
     {% url 'mar:scheduled' as mar_sched_url %}
     {% url 'mar:prn' as mar_prn_url %}
     {% url 'bm' as bm_url %}
-    {% url 'home' as sz_url %}
+    {% url 'seizure' as sz_url %}
     {% url 'equipment' as eq_url%}
     {% url 'notes' as notes_url%}
 
@@ -31,9 +31,9 @@
           </ul>
         </li>
         <a class=" nav-item {% if request.path == int_url %}active{% endif %} nav-link"
-          href="{% url 'home' %}">Interventions</a>
+          href="{% url 'interventions' %}">Interventions</a>
 
-        <a class=" nav-item {% if request.path == sz_url %}active{% endif %} nav-link" href="{% url 'home' %}">Seizure
+        <a class=" nav-item {% if request.path == sz_url %}active{% endif %} nav-link" href="{% url 'seizure' %}">Seizure
           Log</a>
         <a class=" nav-item {% if request.path == bm_url %}active{% endif %} nav-link" href="{% url 'bm' %}">BM log
         </a>
