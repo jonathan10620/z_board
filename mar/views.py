@@ -22,6 +22,9 @@ ord_date = [ordinal(dates[0].strftime("%d")), ordinal(dates[-1].strftime("%d"))]
 
 # Create your views here.
 def scheduled(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     sched_meds = ScheduledMed.objects.all()
 
     if request.method == "POST":
@@ -71,6 +74,9 @@ def scheduled(request):
 
 
 def prn(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     form = PrnMarForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():

@@ -6,6 +6,10 @@ from .models import BM
 
 # Create your views here.
 def bm(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
+        
     today = datetime.today()
     form = BMForm(request.POST or None)
     if request.method == 'POST':

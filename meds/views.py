@@ -8,6 +8,9 @@ from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 def add_schedule(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     if request.method == "POST":
         form = ScheduledMedForm(request.POST)
         if form.is_valid():
@@ -26,12 +29,18 @@ def add_schedule(request):
 
 
 def detail_schedule(request, id):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     med = ScheduledMed.objects.get(id=id)
     return render(request, "meds/detail_sched.html", {"med": med})
 
 
 @require_http_methods(["POST"])
 def delete_schedule(request, id):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     if request.method == "POST":
         med = ScheduledMed.objects.get(id=id)
         med.delete()
@@ -41,6 +50,9 @@ def delete_schedule(request, id):
 
 # PRN Views
 def add_prn(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     if request.method == "POST":
         form = PrnMedForm(request.POST)
         if form.is_valid():
@@ -58,12 +70,18 @@ def add_prn(request):
 
 
 def detail_prn(request, id):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     med = PrnMed.objects.get(id=id)
     return render(request, "meds/detail_prn.html", {"med": med})
 
 
 @require_http_methods(["POST"])
 def delete_prn(request, id):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     if request.method == "POST":
         med = PrnMed.objects.get(id=id)
         med.delete()

@@ -41,12 +41,12 @@ Seizure Log
 
 
   <!-- begin Chart -->
-  <div class="container">
+  <div class="container mb-2">
     <canvas id="myChart" width="400" height="400"></canvas>
   </div>
 
   <!-- BEGIN table-container-->
-  <div class="container">
+  <div class="container mt-3">
     <table class="table table-bordered table-striped table-sm">
       <thead class="thead-dark">
         <tr id='table-head'>
@@ -57,11 +57,11 @@ Seizure Log
           <th style="width: 10%" scope="col">Initials</th>
         </tr>
       </thead>
-      {% for row in data %}
+      {% for row in page_obj %}
       <tr>
         <!-- Order by date -->
         <!-- add row for data -->
-        <td scope="row">{{row.date|date:"F jS" }}</td>
+        <td scope="row">{{row.date|date:"D, M jS" }}</td>
         <td>{{row.date|date:'g:i a'}}</td>
         <td>{{row.duration}}</td>
         <td>{{row.action}}</td>
@@ -71,51 +71,99 @@ Seizure Log
 
     </table>
 
-{% comment %}
-    <nav aria-label="Page navigation example">
-      <ul class='pagination pagination-sm'>
-        <li class="page-item {% if data.page == 1 %}disabled{% endif %}">
-          <a href="{{url_for('seizure', page=data.prev_num)}}" class="page-link">&laquo;</a>
-        </li>
+    <!-- pagination -->
+<div class="conainer">
 
-        {% for page_num in data.iter_pages(left_edge=1, right_edge=1,left_current=1,right_current=2) %}
-        {% if page_num %}
-        {% if data.page == page_num %}
-        <li class="page-item active">
-          <a href="{{ url_for('seizure', page=page_num) }}" class="page-link">
-            {{ page_num }}
-          </a>
-        </li>
-        {% else %}
-        <li class="page-item">
-          <a href="{{ url_for('seizure', page=page_num) }}" class="page-link">
-            {{ page_num }}
-          </a>
-        </li>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pagination">
+          <ul class="pagination ">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only"></span>
+              </a>
+            </li>
+            {% else%}
+            <li class="page-item disabled">
+
+                <span class='page-link' aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            
+
+            {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+              <li class="page-item active"><span class="page-link" href="?page={{ i }}">{{ i }}</span></li>
+
+                {% else %}
+
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only"></span>
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+
+              <span class='page-link' aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+
+  {% comment %}
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        
         {% endif %}
-        {% else %}
-        ...
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
         {% endif %}
-        {% endfor %}
-        <li class="page-item {% if data.page == data.pages %}disabled{% endif %}">
-          <a href="{{ url_for('seizure', page=data.next_num) }}" class="page-link 
-          {% if data.page == data.pages %}disabled{% endif %}">
-            &raquo;
-          </a>
-        </li>
-      </ul>
-    </nav>
-{% endcomment %}
+    </span>
+</div>
+  {% endcomment %}
 
   </div>
+</div>
   <!-- END-table-container -->
 </div>
 
+
 <!-- BEGIN Form container -->
-<div class="container my-5">
+<div class="container">
+  
 
   <form class="card p-3 bg-light form-horizontal" method="POST">
+    <p class="lead">
+      <strong>Seizure Form</strong>
+    </p>
       {% csrf_token %}
     <!-- datetime, duration row-->
     <div class="row">
@@ -193,22 +241,12 @@ Seizure Log
 </div>
 <!-- END Form container -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 
 
 
-
-
-
-
-
-
-
-
-
-{% comment %}
 <script>
-  const labels = {{ labels | tojson }};
+  const labels = {{ labels | safe }};
 
   const data = {
     labels: labels,
@@ -218,7 +256,7 @@ Seizure Log
         backgroundColor: "rgb(51, 153, 255)",
         borderColor: "rgb(101, 180, 255)",
         fill: false,
-        data: {{ week_freq | tojson }},
+        data: {{ week_freq}},
   tension: 0.05,
       },
     ],
@@ -227,29 +265,21 @@ Seizure Log
     type: "line",
     data,
     options: {
+
+
       legend: {
         position: 'bottom',
       },
       hover: {
         mode: 'label'
       },
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: 10
-            },
+      scales: {x: { title: { display: true, text: 'Day of Week' }},
 
-            scaleLabel: {
-              display: true,
-              labelString: 'Number of Seizures'
-            }
+        y: {
+          suggestedMax: 10,
+          title: { display: true, text: 'Number of Seizures' },
 
-          }
-
-
-        ]
+      },
 
       },
       // Boolean - whether or not the chart should be responsive and resize when the browser does.
@@ -264,7 +294,7 @@ Seizure Log
   };
   var myChart = new Chart(document.getElementById("myChart"), config);
 </script>
-{% endcomment %}
+
 
 
 {% endblock %}

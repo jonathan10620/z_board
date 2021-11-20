@@ -6,6 +6,8 @@ from datetime import timedelta
 from django.utils.timezone import make_aware
 from datetime import date
 from datetime import datetime
+import json
+from django.core.paginator import Paginator
 
 
 
@@ -13,12 +15,19 @@ from datetime import datetime
 
 # Create your views here.
 def seizure(request):
+    if not request.session.get("logged_in"):
+        messages.add_message(request, messages.INFO, "Please log in first")
+        return redirect("login")
     form = SeizureForm(request.POST or None)
+
+    
+
+
+
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             messages.success(request, "Seizure Succesfully Logged")
-
             return redirect('seizure')
 
     js_labels = []
@@ -44,8 +53,19 @@ def seizure(request):
             
 
 
-    seizure_data = Seizure.objects.all()
+    seizure_data = Seizure.objects.all()[:50]
+    paginator = Paginator(seizure_data, 7) # Show 25 contacts per page.
 
-    context = {'form': form, 'data': seizure_data}
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+            'form': form, 
+            'data': seizure_data,
+            'page_obj': page_obj,
+            'labels': json.dumps(js_labels), 
+            'week_freq': json.dumps(past_week_freq_data)
+            }
+
 
     return render(request, 'seizure/seizure.html', context)
