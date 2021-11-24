@@ -20,10 +20,6 @@ def seizure(request):
         return redirect("login")
     form = SeizureForm(request.POST or None)
 
-    
-
-
-
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -49,8 +45,6 @@ def seizure(request):
             )
         else:
             past_week_freq_data.append(0)
-
-            
 
 
     seizure_data = Seizure.objects.all()[:50]
