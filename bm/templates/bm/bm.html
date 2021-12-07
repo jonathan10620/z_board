@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-3">
+<div class="container my-3">
     <div class="container">
         <p class="lead">
             Month of {{month}} 
@@ -18,33 +18,29 @@
               <th style="width: 15%" scope="col">Initials</th>
             </tr>
         </thead>
-        
         <tbody>
-            {% if results %}
-                {% for row in results %}
-                    <tr>
-                        <td>{{row.date|date:'N j'}}</td>
-                        <td>{{row.date|date:'P'}}</td>
-                        <td>{{row.size}}</td>
-                        <td>{{row.comment}}</td>
-                        <td>{{row.initial}}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
+            {% for row in results %}
+                <tr>
+                    <td>{{row.date|date:'N j'}}</td>
+                    <td>{{row.date|date:'P'}}</td>
+                    <td>{{row.size}}</td>
+                    <td>{{row.comment}}</td>
+                    <td>{{row.initial}}</td>
+                </tr>
+            {% empty %}
 
-            {% endif %}
+
+            {% endfor %}
         </tbody>
-
-
-
     </table>
+    
 
     
-    <div class="container">
+    <div class="container mt-4">
         <form class='card p-3 bg-light' action="" method='POST'>
             <p class="lead">
                 <strong>BM Form</strong>
-              </p>
+            </p>
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm-5">

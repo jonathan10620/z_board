@@ -1,6 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>This is the interventuions page</h1>
+<div class="container mt-3">
+    <p class="lead">
+        Interventions
+    </p>
+</div>
+
+
+<div class="container">
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th style='width: 20%'></th>
+                <th style='width: 10%'>Monday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="5">Feedings</td>
+    
+                <td>
+                    {% include 'includes/feed_modal.html' %}
+                </td>
+    
+            </tr>
+            <tr>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+            </tr>
+    
+            <tr>
+                <td>5</td>
+            </tr>
+    
+    
+    
+        </tbody>
+    
+    </table>
+    
+</div>
+
 
 {% endblock %}
