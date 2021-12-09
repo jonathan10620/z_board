@@ -29,33 +29,25 @@
                             </thead>
                             
                             <tbody>
-
+                                {% for row in table %}
                                 <tr>
-                                    <td width='15%'>Monday</td>
-
-                                    <td class='text-center' width='17%'>
-                                        8:30 AM (JD)
-                                    </td>
-                                    <td>
-                                        ----
-                                    </td>
-                                    <td>
-                                        ----
-                                    </td>
-                                    <td>
-                                        ----
-                                    </td>
-                                    <td>
-                                        ----
-                                    </td>
+                                    <td width='15%'>{{row.day}}</td>
+                                    {% for time in row.feedings %}
+                                        {% if time %}
+                                            <td width='17%'>{{time.time|date:'H:i'}} ({{time.initial}})</td>
+                                        {% else %}
+                                            <td>----</td>
+                                        {% endif %}
+                                    {% endfor %}
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
 
 
                     <div class="container mt-4">
-                        <form class='card p-3 bg-light' action="" method='POST'>
+                        <form class='card p-3 bg-light' method='POST'>
                             <p class="lead">
                                 <strong>Feeding Entry</strong>
                             </p>
@@ -98,6 +90,7 @@
                                             for="initial">{{form.initials.label}}</label>
                                         <div class="col-sm-8">
                                             {{form.initials}} 
+
                                             {% if form.initials.errors %}
                                                 <ul class="errors">
                                                     {% for error in form.initials.errors %}
@@ -116,11 +109,6 @@
                     
                     
                         </form>
-                
-                
-                
-                
-                
                     </div>
                 </div>
             </div>
