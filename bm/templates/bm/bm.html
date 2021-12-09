@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
+    
+    {% block styles %}
+    <style>
+        #center{
+            font-size: 24px;
+            margin: 25px;
+
+            /* Center vertically and horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+    </style>
+    {% endblock %}
+
 {% block content %}
 <div class="container my-3">
     <div class="container">
@@ -28,8 +46,13 @@
                     <td>{{row.initial}}</td>
                 </tr>
             {% empty %}
-
-
+            </tbody>
+        </table>
+        <div id='center' class='center my-4'>
+            <p id='child' class="lead">
+                No data for {{month}}
+            </p>
+        </div>
             {% endfor %}
         </tbody>
     </table>

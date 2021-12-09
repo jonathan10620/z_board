@@ -8,44 +8,130 @@
 </div>
 
 
-<div class="container">
-    <table class='table table-bordered'>
-        <thead>
-            <tr>
-                <th style='width: 20%'></th>
-                <th style='width: 10%'>Monday</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td rowspan="5">Feedings</td>
-    
-                <td>
-                    {% include 'includes/feed_modal.html' %}
-                </td>
-    
-            </tr>
-            <tr>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>4</td>
-            </tr>
-    
-            <tr>
-                <td>5</td>
-            </tr>
-    
-    
-    
-        </tbody>
-    
-    </table>
-    
+<div class="container mb-4">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Feedings
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <!--Begin Feeding table-->
+                    <div class="container">
+                        <table class='table table-bordered'>
+                            <thead>
+                                <tr>
+                                    <th style="width:2%">Day</th>
+                                    <th class='text-center' style="width:10%" colspan='5'>Feeding Times</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+
+                                <tr>
+                                    <td width='15%'>Monday</td>
+
+                                    <td class='text-center' width='17%'>
+                                        8:30 AM (JD)
+                                    </td>
+                                    <td>
+                                        ----
+                                    </td>
+                                    <td>
+                                        ----
+                                    </td>
+                                    <td>
+                                        ----
+                                    </td>
+                                    <td>
+                                        ----
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="container mt-4">
+                        <form class='card p-3 bg-light' action="" method='POST'>
+                            <p class="lead">
+                                <strong>Feeding Entry</strong>
+                            </p>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="mb-3">
+                                        <label class="col-sm col-form-label form-control-sm" for="med">Feeding</label>
+                                        <div class="col-sm-8">
+                                            <select name='feeding' class="form-select form-select-sm" aria-label="Default select example">
+                                                {% for v,c in feeding_choices %}
+                                                    <option value='{{v}}'>{{c}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="col-sm">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label class="col-sm col-form-label form-control-sm"
+                                                for="mar_datetime">{{form.time_given.label}}</label>
+                                            <div class="col-sm-8">
+                                                {{form.time_given}} 
+                                                {% if form.time_given.errors %}
+                                                        {% for error in form.time_given.errors %}
+                                                        <small class="text-danger"> {{error}} </small>
+                                                        {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="mb-3">
+                                        <label class="col-form-label-sm"
+                                            for="initial">{{form.initials.label}}</label>
+                                        <div class="col-sm-8">
+                                            {{form.initials}} 
+                                            {% if form.initials.errors %}
+                                                <ul class="errors">
+                                                    {% for error in form.initials.errors %}
+                                                        <li>{{ error }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="col-12 mt-3">
+                                <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit Feeding" />
+                            </div>
+                    
+                    
+                        </form>
+                
+                
+                
+                
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
 
 
 {% endblock %}

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # third party
     "crispy_forms",
     "crispy_bootstrap5",
+    'django_extensions',
 ]
 
 
