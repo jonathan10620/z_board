@@ -1,8 +1,9 @@
+from datetime import datetime
+
 from django import forms
+
 from .models import BM
 
-
-from datetime import datetime
 
 class BMForm(forms.ModelForm):
     date = forms.DateTimeField(widget=forms.widgets.DateTimeInput(attrs={'type': 'datetime-local', "class": "form-control form-control-sm"}))

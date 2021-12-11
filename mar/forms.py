@@ -1,7 +1,11 @@
-from django import forms
-from .models import MarPrn
 from datetime import datetime
+
+from django import forms
+
 from meds.models import PrnMed
+
+from .models import MarPrn
+
 
 class PrnMarForm(forms.ModelForm):
     mar_datetime = forms.DateTimeField(widget=forms.widgets.DateTimeInput(attrs={'type': 'datetime-local', "class": "form-control form-control-sm"}))

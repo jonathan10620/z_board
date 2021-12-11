@@ -1,17 +1,14 @@
-from django.shortcuts import render, redirect
-from meds.models import ScheduledMed, PrnMed
-from .models import MarScheduled, MarPrn
-
-
-
-from .forms import PrnMarForm
-
-from django.contrib.humanize.templatetags.humanize import ordinal
 import datetime
-from django.contrib import messages
 import pprint
 
+from django.contrib import messages
+from django.contrib.humanize.templatetags.humanize import ordinal
+from django.shortcuts import redirect, render
 
+from meds.models import PrnMed, ScheduledMed
+
+from .forms import PrnMarForm
+from .models import MarPrn, MarScheduled
 
 today = datetime.date.today()
 dates = [
@@ -65,7 +62,6 @@ def scheduled(request):
         "meds": sched_meds,
         "today": today,
         "week_dates": dates,
-        
         "ord_date": ord_date,
         "mar_map": mar_map,
     }

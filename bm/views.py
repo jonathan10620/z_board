@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
 from datetime import datetime
+
+from django.contrib import messages
+from django.shortcuts import redirect, render
+
 from .forms import BMForm
 from .models import BM
+
 
 # Create your views here.
 def bm(request):

@@ -1,7 +1,9 @@
-from django import forms
-from .models import Note
 from datetime import datetime
+
+from django import forms
 from django.utils import timezone
+
+from .models import Note
 
 
 class NoteForm(forms.ModelForm):

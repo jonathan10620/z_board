@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
-from .models import Other, CPAP, Suction
-from .forms import EquipmentForm
 from django.contrib import messages
+from django.shortcuts import redirect, render
+
+from .forms import EquipmentForm
+from .models import CPAP, Other, Suction
 
 
 # Create your views here.

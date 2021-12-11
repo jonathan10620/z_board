@@ -1,15 +1,21 @@
-from django.shortcuts import render, redirect
+import json
+from datetime import date, datetime, timedelta
+
+from django.contrib import messages
+from django.contrib.humanize.templatetags.humanize import ordinal
+from django.core.paginator import Paginator
+from django.shortcuts import redirect, render
+from django.utils.timezone import make_aware
+
 from .forms import SeizureForm
 from .models import Seizure
-from django.contrib import messages
-from datetime import timedelta
-from django.utils.timezone import make_aware
-from datetime import date
-from datetime import datetime
-import json
-from django.core.paginator import Paginator
 
-
+today = date.today()
+dates = [
+    today + timedelta(days=x)
+    for x in range(0 - today.weekday(), 7 - today.weekday())
+]
+ord_date = [ordinal(dates[0].strftime("%d")), ordinal(dates[-1].strftime("%d"))]
 
 
 
@@ -58,7 +64,9 @@ def seizure(request):
             'data': seizure_data,
             'page_obj': page_obj,
             'labels': json.dumps(js_labels), 
-            'week_freq': json.dumps(past_week_freq_data)
+            'week_freq': json.dumps(past_week_freq_data),
+            "week_dates": dates,
+            "ord_date": ord_date,
             }
 
 

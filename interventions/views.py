@@ -1,9 +1,14 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import FeedingEntries
+import calendar
 import datetime
-from .forms import FeedingForm
 from pprint import pprint
+
+from django.contrib import messages
+from django.shortcuts import redirect, render
+
+from .forms import FeedingForm
+from .models import FeedingEntries
+
+
 # Create your views here.
 def interventions(request):
     day_of_week = datetime.datetime.now().weekday()
@@ -28,11 +33,11 @@ def interventions(request):
             
 
     FEEDING_CHOICES = (
-        (0, 'first feeding'),
-        (1, 'second feeding'),
-        (2, 'third feeding'),
-        (3, 'fourth feeding'),
-        (4, 'fifth feeding'),
+        (0, 'first'),
+        (1, 'second'),
+        (2, 'third'),
+        (3, 'fourth'),
+        (4, 'fifth'),
     )
 
     objects = FeedingEntries.objects.all().order_by('day')
@@ -51,7 +56,8 @@ def interventions(request):
         table[obj.day]['feedings'][obj.feeding_choice] = {'time': obj.time_given, 'initial': obj.initials}
 
 
-    context = {'form': form, 'feeding_choices': FEEDING_CHOICES, 'table': table[:day_of_week + 1]}
+
+    context = {'form': form, 'feeding_choices': FEEDING_CHOICES, 'table': table[:day_of_week + 1], 'current_day': calendar.day_name[day_of_week]}
 
 
     return render(request, 'interventions/interventions.html', context)

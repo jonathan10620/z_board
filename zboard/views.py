@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+
+from meds.models import PrnMed, ScheduledMed
+
 from .models import Contact
-from meds.models import ScheduledMed, PrnMed
 
 
 # Create your views here.

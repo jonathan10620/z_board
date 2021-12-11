@@ -1,7 +1,9 @@
-from django.db import models
-from meds.models import PrnMed, ScheduledMed
-from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils import timezone
+
+from meds.models import PrnMed, ScheduledMed
+
 
 class MarPrn(models.Model):
     def no_future(value):

@@ -1,6 +1,9 @@
-from .models import FeedingEntries
-from django import forms
 from datetime import datetime
+
+from django import forms
+
+from .models import FeedingEntries
+
 
 class FeedingForm(forms.ModelForm):
     time_given = forms.TimeField(widget=forms.TimeInput(attrs={'type':'time',"class": "form-control form-control-sm"},format='%H:%M'))

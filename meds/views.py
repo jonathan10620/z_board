@@ -1,10 +1,11 @@
-from django.http.response import HttpResponse
-from django.shortcuts import render, redirect
-from .forms import ScheduledMedForm, PrnMedForm
-from .models import ScheduledMed, PrnMed
 from django.contrib import messages
-
+from django.http.response import HttpResponse
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
+
+from .forms import PrnMedForm, ScheduledMedForm
+from .models import PrnMed, ScheduledMed
+
 
 # Create your views here.
 def add_schedule(request):
