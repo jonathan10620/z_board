@@ -261,7 +261,7 @@ zboard | Seizure
         backgroundColor: "rgb(51, 153, 255)",
         borderColor: "rgb(101, 180, 255)",
         fill: false,
-        data: {{ week_freq}},
+        data: {{ week_freq }},
   tension: 0.05,
       },
     ],
@@ -278,8 +278,12 @@ zboard | Seizure
       hover: {
         mode: 'label'
       },
-      scales: {x: { title: { display: true, text: 'Day of Week' }},
-
+      scales: {
+        x: { 
+          title: { display: true, text: 'Day of Week' },
+          beginAtZero: true,
+        
+        },
         y: {
           suggestedMax: 10,
           title: { display: true, text: 'Number of Seizures' },

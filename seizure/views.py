@@ -1,5 +1,6 @@
 import json
 from datetime import date, datetime, timedelta
+from pprint import pprint
 
 from django.contrib import messages
 from django.contrib.humanize.templatetags.humanize import ordinal
@@ -50,9 +51,9 @@ def seizure(request):
                 Seizure.objects.filter(date__date=make_aware(sz_date)).count()
             )
         else:
-            past_week_freq_data.append(0)
+            past_week_freq_data.append(None)
 
-
+    pprint(past_week_freq_data)
     seizure_data = Seizure.objects.all()[:50]
     paginator = Paginator(seizure_data, 7) # Show 25 contacts per page.
 

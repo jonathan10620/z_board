@@ -103,7 +103,8 @@ zboard | BM log
                         <label class="col-sm-4 col-form-label form-control-sm"
                             for="mar_datetime">{{form.date.label}}</label>
                         <div class="col-sm-8">
-                            {{form.date}} 
+                            {{form.date}}
+
                             {% if form.date.errors %}
                                     {% for error in form.date.errors %}
                                     <small class="text-danger"> {{error}} </small>

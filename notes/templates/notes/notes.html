@@ -14,7 +14,9 @@ zboard | Notes
         </div>
         <div>
             <a href="{% url 'new_note' %}" class="btn btn-link">
+                <strong>
                 Create Note (+)
+                </strong>
             </a>
         </div>
     </div>
@@ -22,7 +24,7 @@ zboard | Notes
     {% for note in notes %}
     <div class="card border-dark mb-3">
         <div class="card-header">
-            {{note.date|date:"l, jS F g:i a"}} - {{note.author}}
+            {{note.date|date:"l F, jS g:i a"}} - {{note.author}}
         </div>
         <div class="card-body">
             {{note.body}}

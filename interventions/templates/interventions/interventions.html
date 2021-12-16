@@ -5,14 +5,27 @@ zboard | Interventions
 {% endblock %}
 
 
+{% block styles %}
+<style>
+
+
+.center {
+    display: flex;
+    justify-content: center;
+
+    height: 150px;
+  }
+</style>
+{% endblock %}
+
+
+
 {% block content %}
 <div class="container mt-3">
     <p class="lead">
         Interventions
     </p>
 </div>
-
-
 <div class="container mb-4">
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
@@ -25,33 +38,35 @@ zboard | Interventions
                 <div class="accordion-body">
                     <!--Begin Feeding table-->
                     <div class="container">
-                        <table class='table table-bordered'>
+                        <table class='table table-bordered mb-3'>
                             <thead>
-                                <tr>
-                                    <th style="width:2%">Day</th>
-                                    <th class='text-center' style="width:10%" colspan='5'>Feeding Times</th>
+                                <tr class='table-primary'>
+                                    <th style="width:16%">Day</th>
+                                    <th class='text-center' style="width:16%">First</th>
+                                    <th class='text-center' style="width:16%">Second</th>
+                                    <th class='text-center' style="width:16%">Third</th>
+                                    <th class='text-center' style="width:16%">Fourth</th>
+                                    <th class='text-center' style="width:16%">Fifth</th>
+                                    <!-- <th class='text-center' style="width:10%" colspan='5'>Feeding Times</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for row in table %}
+                                {% for row in feed_table %}
                                 <tr class='table-{% if row.day == current_day %}light{% else %}secondary{% endif %}'>
                                     <td width='15%'>{{row.day}}</td>
                                     {% for time in row.feedings %}
                                         {% if time %}
                                             <td  class="table-success text-center " width='17%'>{{time.time|time}} ({{time.initial}})</td>
                                         {% else %}
-                                            <td class='table-bordered'>----</td>
+                                            <td class='text-center table-bordered'>----</td>
                                         {% endif %}
                                     {% endfor %}
                                 </tr>
-                                
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-
-
-                    <div class="container mt-4">
+                    <div class="container my-3">
                         <div class="row">
                             <div class="col" style="width:99%">
                                 <form class='card p-3 bg-light' method='POST'>
@@ -98,7 +113,6 @@ zboard | Interventions
                                                     for="initial">{{form.initials.label}}</label>
                                                 <div class="col-sm-10">
                                                     {{form.initials}} 
-        
                                                     {% if form.initials.errors %}
                                                         <ul class="errors">
                                                             {% for error in form.initials.errors %}
@@ -110,17 +124,11 @@ zboard | Interventions
                                             </div>
                                         </div>
                                     </div>
-                            
                                     <div class="mt-3">
-                                        <input id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit Feeding" />
+                                        <input name='feeding_form' id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit" />
                                     </div>
-                            
-                            
                                 </form>
-
-
                             </div>
-
                             <div class="col card p-3 bg-light">
                                 <p class="lead text-center">
                                     <strong>Recipe</strong>
@@ -139,21 +147,126 @@ zboard | Interventions
                                             <td>1 scoop of beneprotein</li>
                                         </tr>
                                     </table>
-                                    <p class='text-center mt-3'>Set pump to 300ml per hour for 5 feedings daily.</p>
+                                <p class='text-center mt-3'>Set pump to 300ml per hour for 5 feedings daily.</p>
                             </div>
                         </div>
-                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    Breathing Treatment
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <!--Begin Feeding table-->
+                    <div class="container">
+                        <table class='table table-bordered mb-3'>
+                            <thead>
+                                <tr class='table-primary'>
+                                    <th style="width:10%">Day</th>
+                                    <th class='text-center' style="width:16%">AM</th>
+                                    <th class='text-center' style="width:16%">PM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in breath_table %}
+                                <tr class='table-{% if row.day == current_day %}light{% else %}secondary{% endif %}'>
+                                    <td width='15%'>{{row.day}}</td>
+                                    {% for time in row.breathing %}
+                                        {% if time %}
+                                            <td  class="table-success text-center " width='17%'>{{time.time|time}} ({{time.initial}})</td>
+                                        {% else %}
+                                            <td class='text-center table-bordered'>----</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container">
+                        <div class="container my-3">
+                            <div class="row">
+                                <div class="col" style="width:99%">
+                                    <form class='card p-3 bg-light' method='POST'>
+                                        <p class="lead">
+                                            <strong>Breathing Treatment for {{current_day}}</strong>
+                                        </p>
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="mb-1">
+                                                    <label class="col-sm col-form-label form-control-sm" for="med">Breathing Treatment</label>
+                                                    <div class="col-sm-8">
+                                                        <select name='breathing' class="form-select form-select-sm" aria-label="Default select example">
+                                                            <option value='0'>AM</option>
+                                                            <option value='1'>PM</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="col-sm">
+                                                    <div class="mb-1">
+                                                        <label class="col-sm col-form-label form-control-sm"
+                                                            for="mar_datetime">Time Administerd</label>
+                                                        <div class="col-sm-8">
+                                                            {{breath_form.time_given}} 
+                                                            {% if breath_form.time_given.errors %}
+                                                                    {% for error in breath_form.time_given.errors %}
+                                                                    <small class="text-danger"> {{error}} </small>
+                                                                    {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="mb-1">
+                                                    <label class="col-sm col-form-label form-control-sm"
+                                                        for="initial">{{breath_form.initials.label}}</label>
+                                                    <div class="col-sm-10">
+                                                        {{breath_form.initials}} 
+                                                        {% if breath_form.initials.errors %}
+                                                            <ul class="errors">
+                                                                {% for error in breath_form.initials.errors %}
+                                                                    <li>{{ error }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <input name='breathing_form' id="submit-button" class="btn btn-primary btn-small" type="submit" value="Submit" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col card p-3 bg-light">
+                                    <p class="lead text-center">
+                                        <strong>Instructions</strong>
+                                    </p>
+                                        <p class='center text-center mt-3 lh-base'>
+                                            Administer Albuterol with Hypotonic Saline via Nebulizer with CPT Vest BID. 
+                                            Suction after CPT vest treatment to reduce signs and symptoms of respiratory distress/thick secretions, and mucus plugs.
+                                        </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 {% endblock %}

@@ -12,21 +12,20 @@ def bm(request):
     if not request.session.get("logged_in"):
         messages.add_message(request, messages.INFO, "Please log in first")
         return redirect("login")
-        
+
     today = datetime.today()
     form = BMForm(request.POST or None)
-    if request.method == 'POST':
+    if request.method == "POST":
         if form.is_valid():
             form.save()
             messages.success(request, "BM entry added")
             return redirect("bm")
 
-
     results = BM.objects.filter(date__month=today.month)
 
     context = {
-        'form': form,
-        'month': today.strftime('%B'),
-        'results': results,
+        "form": form,
+        "month": today.strftime("%B"),
+        "results": results,
     }
-    return render(request, 'bm/bm.html', context)
+    return render(request, "bm/bm.html", context)
