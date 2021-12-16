@@ -1,6 +1,18 @@
 {% extends 'base.html' %} {% load static %}
 <!--start title-->
 {% block title %} zboard | {{med.name}} {% endblock %}
+
+{% block styles %}
+<style>
+  img {
+    max-width: 250px;
+    max-height: 200px;
+  }
+
+</style>
+{% endblock %}
+
+
 <!--Start Body-->
 {% block content %}
 <div class="container mt-3">
@@ -18,7 +30,7 @@
         <img
           src="{% static image_static %}"
           class="img-fluid rounded-start"
-          alt="..."
+          onerror="this.src='{% static 'meds/default.jpeg' %}'"
         />
         {% endwith %}
       </div>

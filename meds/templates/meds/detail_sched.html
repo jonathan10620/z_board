@@ -1,6 +1,16 @@
 {% extends 'base.html' %} {% load static %}
 <!--start title-->
-{% block title %} zboard | {{med.name}} {% endblock %}
+{% block title %} zboard | {{med.name}} {% endblock %}\
+
+{% block styles %}
+<style>
+  img {
+    max-width: 250px;
+    max-height: 200px;
+  }
+
+</style>
+{% endblock %}
 
 <!--Block body start-->
 {% block content %}
@@ -22,12 +32,14 @@
       <div class="col">
         <!--img-->
         {% with 'meds/'|add:med.name.lower|add:'.jpeg' as image_static %}
+
         <img
           src="{% static image_static %}"
           class="img-fluid rounded-start"
-          alt="..."
+          onerror="this.src='{% static 'meds/default.jpeg' %}'"
         />
         {% endwith %}
+
       </div>
       <div class="card-footer">
         <a

@@ -12,7 +12,6 @@ zboard | Interventions
 .center {
     display: flex;
     justify-content: center;
-
     height: 150px;
   }
 </style>
@@ -130,7 +129,7 @@ zboard | Interventions
                                 </form>
                             </div>
                             <div class="col card p-3 bg-light">
-                                <p class="lead text-center">
+                                <p class="lead text-center fs-4">
                                     <strong>Recipe</strong>
                                 </p>
                                     <table class='table text-center'>
@@ -253,13 +252,19 @@ zboard | Interventions
                                     </form>
                                 </div>
                                 <div class="col card p-3 bg-light">
-                                    <p class="lead text-center">
+                                    <p class="lead text-center fs-4">
                                         <strong>Instructions</strong>
                                     </p>
-                                        <p class='center text-center mt-3 lh-base'>
+
+                                    <div class="mx-auto mt-2" style='width: 75%'>
+                                        <p class='text-center text-break fs-6'>
                                             Administer Albuterol with Hypotonic Saline via Nebulizer with CPT Vest BID. 
-                                            Suction after CPT vest treatment to reduce signs and symptoms of respiratory distress/thick secretions, and mucus plugs.
+                                            <hr>
+                                            <p class='text-break text-center fs-6'>Suction after CPT vest treatment to reduce signs and symptoms of respiratory distress/thick secretions, and mucus plugs.</p>
+                                            
                                         </p>
+                                    </div>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -269,4 +274,4 @@ zboard | Interventions
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %}s
